@@ -1,0 +1,150 @@
+﻿@page "/gemstonePricer"
+<h3>GemstonePricer</h3>
+
+<InputFile OnChange="GetFakeOrReal">
+
+</InputFile>
+<label>
+    Task
+    <br />
+    Have a machine model figure out if an image of one of three gemstones is fake or real.
+    <br />
+    Once it has found out if its fake or real hand it over to another model, that figure out the price of the gemstone.
+    <br />
+</label>
+
+<br />
+<div>
+
+    <label>The best Color score is: @ColorOutput.PredictedLabel</label><br />
+    <label>The lower the better </label><br />
+    @if (ColorOutput.Score != null)
+    {
+        int score = (int)(ColorOutput.Score.Max() * 100);
+        <label>
+            At @score%
+        </label>
+
+        List<float> ScoreList = new();
+        ScoreList.AddRange(ColorOutput.Score);
+        ScoreList.Sort();
+        ScoreList.Reverse();
+
+        <br />
+        for (int i = 1; i < 4; i++)
+        {
+            int sc = (int)(ScoreList[i] * 100);
+            <label>@i: @sc %</label>
+            <br />
+        }
+    }
+    <br />
+    <label>The best Cut score is: @CutOutput.PredictedLabel</label><br />
+    @if (CutOutput.Score != null)
+    {
+        int score = (int)(CutOutput.Score.Max() * 100);
+        <label>
+            At @score%
+        </label>
+        <br />
+
+        List<float> ScoreList = new();
+        ScoreList.AddRange(CutOutput.Score);
+        ScoreList.Sort();
+        ScoreList.Reverse();
+
+        for (int i = 1; i < 4; i++)
+        {
+            int sc = (int)(ScoreList[i] * 100);
+            <label>@i: @sc %</label>
+            <br />
+        }
+    }
+    <br />
+    <label>The best Clarity score is: @ClarityOutput.PredictedLabel </label><br />
+    <label>The heigher the better </label><br />
+    @if (ClarityOutput.Score != null)
+    {
+        int score = (int)(ClarityOutput.Score.Max() * 100);
+        <label>
+            At @score%
+        </label>
+        <br />
+        List<float> ScoreList = new();
+        ScoreList.AddRange(ClarityOutput.Score);
+        ScoreList.Sort();
+        ScoreList.Reverse();
+
+        for (int i = 1; i < 4; i++)
+        {
+            int sc = (int)(ScoreList[i] * 100);
+            <label>@i: @sc %</label>
+            <br />
+        }
+    }
+    <br />
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Gems.ModelOutput ClarityOutput { get; set; } = new();
+    [Parameter]
+    public GemCut.ModelOutput CutOutput { get; set; } = new();
+    [Parameter]
+    public GemColor.ModelOutput ColorOutput { get; set; } = new();
+    [Parameter]
+    public GemFeakorReal.ModelOutput GemFeakorRealOutput { get; set; } = new();
+    //The main path
+    string path = @"D:\MashineDataset\Gemstones datasets\Testing\";
+    public void GetFakeOrReal(InputFileChangeEventArgs e)
+    {
+        //D:\MashineDataset\Gemstones datasets\Testing
+        path += e.File.Name;
+        GemFeakorReal.ModelInput input = new()
+            {
+                ImageSource = File.ReadAllBytes(path)
+            };
+
+        GemFeakorRealOutput = GemFeakorReal.Predict(input);
+
+
+        if (GemFeakorRealOutput.PredictedLabel == "Not_Emerald")
+        {
+            GetColorResult(path);
+        }
+    }
+
+    void GetColorResult(string path)
+    {
+        GemColor.ModelInput input = new()
+            {
+                ImageSource = File.ReadAllBytes(path)
+            };
+
+        ColorOutput = GemColor.Predict(input);
+        GetCutResult(path);
+    }
+    void GetCutResult(string path)
+    {
+        GemCut.ModelInput input = new()
+            {
+                ImageSource = File.ReadAllBytes(path)
+            };
+
+        CutOutput = GemCut.Predict(input);
+        GetClarityResult(path);
+    }
+    void GetClarityResult(string path)
+    {
+
+        Gems.ModelInput input = new()
+            {
+                ImageSource = File.ReadAllBytes(path)
+            };
+
+        ClarityOutput = Gems.Predict(input);
+    }
+}

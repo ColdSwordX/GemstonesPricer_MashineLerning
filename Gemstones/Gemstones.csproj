@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.7.1" />
+    <PackageReference Include="Microsoft.ML.Vision" Version="1.7.1" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GemClarity_gen2\GemClarity_gen2.csproj" />
+    <ProjectReference Include="..\GemColor_gen1\GemColor_gen1.csproj" />
+    <ProjectReference Include="..\GemCut_gen1\GemCut_gen1.csproj" />
+    <ProjectReference Include="..\GemFeakorReal_gen1\GemFeakorReal_gen1.csproj" />
+  </ItemGroup>
+  <ItemGroup Label="GemFeakorReal">
+    <None Include="GemFeakorReal.consumption.cs">
+      <DependentUpon>GemFeakorReal.mbconfig</DependentUpon>
+    </None>
+    <None Include="GemFeakorReal.training.cs">
+      <DependentUpon>GemFeakorReal.mbconfig</DependentUpon>
+    </None>
+    <None Include="GemFeakorReal.zip">
+      <DependentUpon>GemFeakorReal.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemstones", "Gemstones\Gemstones.csproj", "{117DCBC5-95DB-425C-BA79-762CC6862024}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GemClarity_gen1", "Gemstone_gen_1\GemClarity_gen1.csproj", "{B9A80EFC-CF01-4D34-AEF9-BB2BEFB14AEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GemClarity_gen2", "GemClarity_gen2\GemClarity_gen2.csproj", "{2F4F1878-1A3A-4EC1-98F2-010B9BFE2F61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GemCut_gen1", "GemCut_gen1\GemCut_gen1.csproj", "{5592B2E8-D764-472C-AA2F-BF1279D0E490}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GemColor_gen1", "GemColor_gen1\GemColor_gen1.csproj", "{069EA5CA-4ADF-4123-ACD6-43EB362534BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GemFeakorReal_gen1", "GemFeakorReal_gen1\GemFeakorReal_gen1.csproj", "{65A1C422-FEDB-454B-A51C-B7FD647697DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{117DCBC5-95DB-425C-BA79-762CC6862024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{117DCBC5-95DB-425C-BA79-762CC6862024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{117DCBC5-95DB-425C-BA79-762CC6862024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{117DCBC5-95DB-425C-BA79-762CC6862024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A80EFC-CF01-4D34-AEF9-BB2BEFB14AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A80EFC-CF01-4D34-AEF9-BB2BEFB14AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A80EFC-CF01-4D34-AEF9-BB2BEFB14AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A80EFC-CF01-4D34-AEF9-BB2BEFB14AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4F1878-1A3A-4EC1-98F2-010B9BFE2F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4F1878-1A3A-4EC1-98F2-010B9BFE2F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4F1878-1A3A-4EC1-98F2-010B9BFE2F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4F1878-1A3A-4EC1-98F2-010B9BFE2F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5592B2E8-D764-472C-AA2F-BF1279D0E490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5592B2E8-D764-472C-AA2F-BF1279D0E490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5592B2E8-D764-472C-AA2F-BF1279D0E490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5592B2E8-D764-472C-AA2F-BF1279D0E490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069EA5CA-4ADF-4123-ACD6-43EB362534BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069EA5CA-4ADF-4123-ACD6-43EB362534BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069EA5CA-4ADF-4123-ACD6-43EB362534BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069EA5CA-4ADF-4123-ACD6-43EB362534BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65A1C422-FEDB-454B-A51C-B7FD647697DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65A1C422-FEDB-454B-A51C-B7FD647697DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65A1C422-FEDB-454B-A51C-B7FD647697DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65A1C422-FEDB-454B-A51C-B7FD647697DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE58439F-AEBF-4D53-8E68-D4776EAC5C9E}
+	EndGlobalSection
+EndGlobal
