@@ -1,9 +1,13 @@
 ﻿@page "/gemstonePricer"
+@using System.Globalization;
 <h3>GemstonePricer</h3>
 
 <InputFile OnChange="GetFakeOrReal">
 
 </InputFile>
+<label>
+    The chosen Gem is: @GemFeakorRealOutput.PredictedLabel
+</label>
 <label>
     Task
     <br />
@@ -62,7 +66,7 @@
     }
     <br />
     <label>The best Clarity score is: @ClarityOutput.PredictedLabel </label><br />
-    <label>The heigher the better </label><br />
+    <label>The lower the better </label><br />
     @if (ClarityOutput.Score != null)
     {
         int score = (int)(ClarityOutput.Score.Max() * 100);
@@ -83,37 +87,99 @@
         }
     }
     <br />
-
 </div>
+<div>
+    <input type="number" @bind-value="@XValue" placeholder="X value" />
 
+    <input type="number" @bind-value="@YValue" placeholder="Y value" />
+    <input type="number" @bind-value="@ZValue" placeholder="Z value" />
+
+
+    <br />
+    <label>This should be set last! the values abouve NEEDS to be set</label>
+
+    <br />
+
+    <select @bind="@type">
+        <option value="0" selected="selected"> @GemTypes[0] </option>
+        @for (int i = 1; i < GemTypes.Count; i++)
+        {
+            <option value="@i"> @GemTypes[i] </option>
+        }
+    </select>
+    <br />
+    <button @onclick="GetPrice">
+        Find price
+    </button>
+    <br />
+    <label>The score of the price </label>
+    <br />
+    @if (GemPricerOutput.Score != 0)
+    {
+        <label>
+            Score: @GemPricerOutput.Score
+        </label>
+        <br />
+        <label>
+            Cut: @GemPricerOutput.Cut
+        </label>
+        <br />
+        <label>
+            Clarity: @GemPricerOutput.Clarity
+        </label>
+        <br />
+        <label>
+            Carat: @GemPricerOutput.Carat
+        </label>
+        <br />
+        <label>
+            Coler: @GemPricerOutput.Color
+        </label>
+        <br />
+        <label>
+            Price: @GemPricerOutput.Price
+        </label>
+    }
+</div>
 
 @code {
 
     [Parameter]
-    public Gems.ModelOutput ClarityOutput { get; set; } = new();
+    public GemClarity.ModelOutput ClarityOutput { get; set; } = new();
     [Parameter]
     public GemCut.ModelOutput CutOutput { get; set; } = new();
     [Parameter]
     public GemColor.ModelOutput ColorOutput { get; set; } = new();
     [Parameter]
     public GemFeakorReal.ModelOutput GemFeakorRealOutput { get; set; } = new();
+    [Parameter]
+    public GemPricer.ModelOutput GemPricerOutput { get; set; } = new();
+
+    List<string> GemTypes = new() { "Round", "Oval", "Square", "Square Cushion", "Square Step Cut", "Square with Cut Corners",
+    "Rectangle","Rectangle Step Cut","Rectangle with Cut Corners" ,"Rectangular Cushion","Pear","Heart","Marquise","Triangle" };
+
+    public string type { get; set; } = "0";
+
+    public float XValue { get; set; } = 0;
+    public float YValue { get; set; } = 0;
+    public float ZValue { get; set; } = 0;
+    float GemShapeValue = 0;
+
     //The main path
-    string path = @"D:\MashineDataset\Gemstones datasets\Testing\";
+    string Basepath = @"D:\MashineDataset\Gemstones datasets\Testing\";
     public void GetFakeOrReal(InputFileChangeEventArgs e)
     {
-        //D:\MashineDataset\Gemstones datasets\Testing
-        path += e.File.Name;
+        string tempPath = Basepath + e.File.Name;
         GemFeakorReal.ModelInput input = new()
             {
-                ImageSource = File.ReadAllBytes(path)
+                ImageSource = File.ReadAllBytes(tempPath)
             };
 
         GemFeakorRealOutput = GemFeakorReal.Predict(input);
 
-
-        if (GemFeakorRealOutput.PredictedLabel == "Not_Emerald")
+        if (GemFeakorRealOutput.PredictedLabel == "Emerald")
         {
-            GetColorResult(path);
+            GetColorResult(tempPath);
         }
     }
 
@@ -140,11 +206,75 @@
     void GetClarityResult(string path)
     {
 
-        Gems.ModelInput input = new()
+        GemClarity.ModelInput input = new()
             {
                 ImageSource = File.ReadAllBytes(path)
             };
 
-        ClarityOutput = Gems.Predict(input);
+        ClarityOutput = GemClarity.Predict(input);
+    }
+
+    void GetPrice()
+    {
+        switch (GemTypes[Convert.ToInt32(type)])
+        {
+            case "Round":
+                GemShapeValue = 0.0018f;
+                break;
+            case "Oval":
+                GemShapeValue = 0.0020f;
+                break;
+            case "Square":
+                GemShapeValue = 0.0024f;
+                break;
+            case "Square Cushion":
+                GemShapeValue = 0.0018f;
+                break;
+            case "Square Step Cut":
+                GemShapeValue = 0.0023f;
+                break;
+            case "Square with Cut Corners":
+                GemShapeValue = 0.0024f;
+                break;
+            case "Rectangle":
+                GemShapeValue = 0.0026f;
+                break;
+            case "Rectangle Step Cut":
+                GemShapeValue = 0.0025f;
+                break;
+            case "Rectangle with Cut Corners":
+                GemShapeValue = 0.0026f;
+                break;
+            case "Rectangular Cushion":
+                GemShapeValue = 0.0022f;
+                break;
+            case "Pear":
+                GemShapeValue = 0.0018f;
+                break;
+            case "Heart":
+                GemShapeValue = 0.0021f;
+                break;
+            case "Marquise":
+                GemShapeValue = 0.0017f;
+                break;
+            case "Triangle":
+                GemShapeValue = 0.0018f;
+                break;
+
+        }
+        Random ran = new();
+        float sg = (ran.Next(6500, 7500) / 10000);
+        GemPricer.ModelInput input = new()
+            {
+                Clarity = float.Parse(ClarityOutput.PredictedLabel, CultureInfo.InvariantCulture.NumberFormat),
+                Color = float.Parse(ColorOutput.PredictedLabel, CultureInfo.InvariantCulture.NumberFormat),
+                Cut = ClarityOutput.PredictedLabel,
+                Carat = XValue * YValue * ZValue * (2 + sg) * GemShapeValue,
+                X = XValue,
+                Y = YValue,
+                Z = ZValue,
+            };
+
+        GemPricerOutput = GemPricer.Predict(input);
     }
 }

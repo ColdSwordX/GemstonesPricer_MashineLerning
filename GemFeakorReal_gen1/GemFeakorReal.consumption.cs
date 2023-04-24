@@ -45,7 +45,7 @@ public partial class GemFeakorReal
 
     #endregion
 
-    private static string MLNetModelPath = Path.GetFullPath("GemFeakorReal.zip");
+    private static string MLNetModelPath = Path.GetFullPath("../GemFeakorReal_gen1/GemFeakorReal.zip");
 
     public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 

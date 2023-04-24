@@ -5,8 +5,8 @@ using Microsoft.Extensions.ML;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPredictionEnginePool<Gems.ModelInput, Gems.ModelOutput>()
-    .FromFile("Gems.zip");
+//builder.Services.AddPredictionEnginePool<Gems.ModelInput, Gems.ModelOutput>()
+//    .FromFile("Gems.zip");
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -32,15 +32,15 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 // Define prediction route & handler
-app.MapPost("/predict",
-    async (PredictionEnginePool<Gems.ModelInput, Gems.ModelOutput> predictionEnginePool, string imagePath) =>
-    {
-        var input = new Gems.ModelInput()
-        {
-            ImageSource = File.ReadAllBytes(imagePath),
-        };
+//app.MapPost("/predict",
+//    async (PredictionEnginePool<Gems.ModelInput, Gems.ModelOutput> predictionEnginePool, string imagePath) =>
+//    {
+//        var input = new Gems.ModelInput()
+//        {
+//            ImageSource = File.ReadAllBytes(imagePath),
+//        };
 
-        return await Task.FromResult(predictionEnginePool.Predict(input));
-    });
+//        return await Task.FromResult(predictionEnginePool.Predict(input));
+//    });
 
 app.Run();
